@@ -1,9 +1,10 @@
 import pandas as pd
+import os
 from ast import literal_eval
 
 cols_to_transform = ['seconds_to_incident_sequence', 'vehicles_sequence', 'events_sequence',
                      'train_kph_sequence', 'dj_ac_state_sequence', 'dj_dc_state_sequence']
-
+data_folder = os.path.join("..", "data")
 
 def sort_by_first_column(row):
     combined = zip(*(row[col] for col in cols_to_transform))
@@ -12,8 +13,7 @@ def sort_by_first_column(row):
         row[col] = [item[i] for item in sorted_row]
     return row
 
-
-df = pd.read_csv("sncb_data_challenge.csv", sep = ';', index_col=0)
+df = pd.read_csv(os.path.join(data_folder, "sncb_data_challenge.csv"), sep = ';', index_col=0)
 
 
 for col in cols_to_transform:
@@ -22,4 +22,4 @@ for col in cols_to_transform:
 
 time_sorted_df = df.apply(sort_by_first_column, axis=1)
 
-time_sorted_df.to_csv("time_sorted_table.csv", sep=';')
+time_sorted_df.to_csv(os.path.join(data_folder, "time_sorted_table.csv"), sep=';')
