@@ -9,22 +9,17 @@ from keras import layers
 
 from ast import literal_eval
 from datetime import datetime
-import os, sys, argparse, json
+import os, sys, json
 
 import utils
 
-parser = argparse.ArgumentParser(description="Anomaly detection model with AutoEncoders")
-parser.add_argument('--window', '-w', help='Window size', required=True, type=int)
-parser.add_argument('--lag', '-l', help="Size of lag step", required=True, type=int)
-args = parser.parse_args()
-
 class AnomalyDetector:
-    def __init__(self):
+    def __init__(self, w, l):
         print('[__init__] start')
         self.data_path = '../../data/time_sorted_table.csv'
         self.results_path = './results'
-        self.w = args.window
-        self.l = args.lag
+        self.w = w
+        self.l = l
         self.vocab_path = './embeddings/metadata.tsv'
         self.vectors_path = './embeddings/vectors.tsv'
         timestamp = datetime.now()
@@ -169,7 +164,7 @@ class AnomalyDetector:
             non_norm_count = sum([1 for x in incident_df["class"].to_list() if x != "normal"])
             norm_count = sum([1 for x in incident_df["class"].to_list() if x == "normal"])
             if non_norm_count != 0 and norm_count != 0:
-                self.NDCGs[incident_id] = utils.eval_incident(incident_id)
+                self.NDCGs[incident_id] = utils.eval_incident(self.df_mse, incident_id)
             elif non_norm_count == 0:
                 print(f'{incident_id}: non-norm count = 0')
             elif norm_count == 0:
@@ -186,8 +181,11 @@ class AnomalyDetector:
         self.model.save_weights(f'{self.result_dir_path}/model.weights.h5')
         self.df_seq.to_csv(f'{self.result_dir_path}/df_seq.csv')
         self.df_mse.to_csv(f'{self.result_dir_path}/df_mse.csv')
+        NDCGs_tmp = dict()
+        for key, value in self.NDCGs.items():
+            NDCGs_tmp[str(key)] = value
         with open(f'{self.result_dir_path}/NDCGs_all.json', 'w') as fp:
-            json.dump(obj=self.NDCGs, fp=fp, indent=4)
+            json.dump(obj=NDCGs_tmp, fp=fp, indent=4)
         score = {
             'ndcg_mean': self.ndcg_mean,
             'ndcg_median': self.ndcg_median
@@ -195,18 +193,3 @@ class AnomalyDetector:
         with open(f'{self.result_dir_path}/NDCG.json', 'w') as fp:
             json.dump(obj=score, fp=fp, indent=4)
         print('[save_results] end')
-
-def main():
-    AD = AnomalyDetector()
-    AD.load_data()
-    AD.generate_seqs()
-    AD.classify_seqs()
-    AD.encode_seqs()
-    AD.create_model()
-    AD.train_model()
-    AD.get_anomaly_scores()
-    AD.evaluate()
-    AD.save_results()
-
-if __name__ == "__main__":
-    main()
