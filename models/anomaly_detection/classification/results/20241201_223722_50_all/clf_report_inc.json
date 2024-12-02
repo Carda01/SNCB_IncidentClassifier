@@ -1,0 +1,87 @@
+{
+    "2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 116.0
+    },
+    "3": {
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1-score": 0.8888888888888888,
+        "support": 5.0
+    },
+    "4": {
+        "precision": 0.9866666666666667,
+        "recall": 1.0,
+        "f1-score": 0.9932885906040269,
+        "support": 74.0
+    },
+    "6": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 5.0
+    },
+    "7": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 4.0
+    },
+    "9": {
+        "precision": 0.9913793103448276,
+        "recall": 1.0,
+        "f1-score": 0.9956709956709957,
+        "support": 115.0
+    },
+    "11": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 25.0
+    },
+    "13": {
+        "precision": 0.9828767123287672,
+        "recall": 0.9896551724137931,
+        "f1-score": 0.9862542955326461,
+        "support": 290.0
+    },
+    "14": {
+        "precision": 0.9848484848484849,
+        "recall": 0.9923664122137404,
+        "f1-score": 0.9885931558935361,
+        "support": 131.0
+    },
+    "16": {
+        "precision": 1.0,
+        "recall": 0.6666666666666666,
+        "f1-score": 0.8,
+        "support": 3.0
+    },
+    "17": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 9.0
+    },
+    "99": {
+        "precision": 0.9924242424242424,
+        "recall": 0.9703703703703703,
+        "f1-score": 0.9812734082397003,
+        "support": 135.0
+    },
+    "accuracy": 0.9890350877192983,
+    "macro avg": {
+        "precision": 0.9948496180510823,
+        "recall": 0.9515882184720476,
+        "f1-score": 0.9694974445691495,
+        "support": 912.0
+    },
+    "weighted avg": {
+        "precision": 0.9890884044306527,
+        "recall": 0.9890350877192983,
+        "f1-score": 0.988861100756784,
+        "support": 912.0
+    }
+}
