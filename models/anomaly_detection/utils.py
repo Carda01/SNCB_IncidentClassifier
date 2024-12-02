@@ -81,13 +81,6 @@ def plot_point(df_mse, id, filepath=None):
 
 def plot_sns(df_mse, id, filepath=None):
     tmp_df = df_mse[df_mse['incident_id'] == id].reset_index(drop=True)
-    ambig = tmp_df[tmp_df['class'] != 'normal'].index.to_list()[0]
-    anom_count = tmp_df[tmp_df['class'] == 'anomalous'].index.to_list()
-    if len(anom_count) > 0:
-        anom = anom_count[0]
-    else:
-        anom = None
-
     fig = plt.figure(figsize=(10, 6))
     sns.scatterplot(data=tmp_df.reset_index(), x="index", y="mse", hue="class")
     if filepath:
