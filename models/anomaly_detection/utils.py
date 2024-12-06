@@ -41,6 +41,14 @@ def encode_seqs(df, vocab_lookup):
     print(len(encoded), len(encoded[0]))
     return np.array(encoded)
 
+def classify(row, w):
+    if row.anom_count == 0:
+        return 'normal'
+    if row.anom_count == w:
+        return 'anomalous'
+    if row.anom_count > 0 and row.anom_count < w:
+        return 'ambiguous'
+
 def mse(A, B):
     return (np.square(A - B)).mean()
 
