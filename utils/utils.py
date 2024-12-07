@@ -103,13 +103,12 @@ class IncidentStats:
         ax.set_xlim(self.belgium.total_bounds[[0, 2]])
         ax.set_ylim(self.belgium.total_bounds[[1, 3]])
 
-        for i, label in enumerate(sorted_incident_type):
+        for i, label in enumerate(sorted_incident_type[::-1]):
             subset = filtered_gdf[filtered_gdf.incident_type == label]
             subset.plot(ax=ax, color=self.color_lookup[label], label=f'{label}', markersize=35, edgecolor='k')
 
         plt.legend(title='Incident type', loc='lower left')
         plt.axis('off')
-        plt.show()
 
 
     def get_stats_incidents(self, df):
